@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float maxHorizontalSpeed = 5f;
     [SerializeField] private float jumpPower = 1f;
     [SerializeField] private BoxCollider knifeCollider;
-    
+
     private bool isStabbed;
 
     private void Awake()
@@ -17,29 +17,13 @@ public class Movement : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         knife = transform.GetChild(0);
     }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (isStabbed)
-            {
-                playerRb.isKinematic = false;
-                KnifeColliderEnabler(false);
-                isStabbed = false;
-            }
-            JumpAndRotate();
-        }
-    }
-    private void FixedUpdate()
-    {
-        ConstantForwardSpeed();
-    }
+    private void OnEnable() => InputManager.onAnyTouch += InputManager_OnAnyTouch;
+    private void OnDisable() => InputManager.onAnyTouch -= InputManager_OnAnyTouch;
+    private void FixedUpdate() => ConstantForwardSpeed();
     private void ConstantForwardSpeed()
     {
-        if (isStabbed) { return; }
+        if (isStabbed)  return;
 
-      //  print(playerRb.velocity.z);
         if (playerRb.velocity.z < maxHorizontalSpeed)
         {
             playerRb.AddForce(Vector3.forward * horizontalSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
@@ -49,9 +33,19 @@ public class Movement : MonoBehaviour
             KnifeColliderEnabler(true);
         }
     }
+    private void InputManager_OnAnyTouch()
+    {
+        if (isStabbed)
+        {
+            playerRb.isKinematic = false;
+            KnifeColliderEnabler(false);
+            isStabbed = false;
+        }
+        JumpAndRotate();
+    }
     private void JumpAndRotate()
     {
-        var rotateAmount = Random.Range(250, 360);
+        var rotateAmount = Random.Range(120, 180);
         playerRb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         knife.DOLocalRotate(-Vector3.forward * rotateAmount, 1f, RotateMode.FastBeyond360);
     }
@@ -68,5 +62,6 @@ public class Movement : MonoBehaviour
     {
         knifeCollider.enabled = isStabbed;
     }
+
 
 }
