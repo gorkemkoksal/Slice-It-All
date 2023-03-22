@@ -37,6 +37,7 @@ public class Movement : MonoBehaviour
     {
         if (isStabbed)
         {
+            playerRb.freezeRotation = false;
             playerRb.isKinematic = false;
             KnifeColliderEnabler(false);
             isStabbed = false;
@@ -45,19 +46,10 @@ public class Movement : MonoBehaviour
     }
     private void JumpAndRotate()
     {
-        var rotateAmount = Random.Range(120, 180);
+        playerRb.velocity = Vector3.zero;
         playerRb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-        knife.DOLocalRotate(Vector3.back * rotateAmount, 1f, RotateMode.FastBeyond360);
+      //  knife.DOLocalRotate(new Vector3(0, 0, -240), 1f, RotateMode.FastBeyond360);
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Plane"))
-    //    {
-    //        playerRb.isKinematic = true;
-    //        playerRb.velocity = Vector3.zero;
-    //        isStabbed = true;
-    //    }
-    //}
     private void KnifeColliderEnabler(bool isStabbed) => knifeCollider.enabled = isStabbed;
     public void SetIsStabbed(bool isStabbed) => this.isStabbed = isStabbed;
 

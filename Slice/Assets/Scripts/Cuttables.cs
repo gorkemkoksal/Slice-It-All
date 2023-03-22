@@ -16,7 +16,7 @@ public class Cuttables : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (isCutted) { return; }
-        print("...");
+
         if (other.CompareTag("knife"))
         {
             meshRenderer.enabled = false;
@@ -24,8 +24,8 @@ public class Cuttables : MonoBehaviour
             var right = Instantiate(rightPart, transform.position + new Vector3(transform.localScale.x / 4, 0, 0), Quaternion.identity);
             left.SetParent(transform);
             right.SetParent(transform);
-            cuttedObjects.Add(left);
             cuttedObjects.Add(right);
+            cuttedObjects.Add(left);
 
             if (forceAllCuttedObjects) ForceCuttedOBjects(2);
             else ForceCuttedOBjects(1);
@@ -39,9 +39,9 @@ public class Cuttables : MonoBehaviour
         {
             var rb = cuttedObjects[i].gameObject.GetComponent<Rigidbody>();
 
-            var force = i == 0 ? new Vector3(-100, 0, 0) : new Vector3(100, 0, 0);
-
-            rb.AddForce(force * cuttedObjects[i].transform.localPosition.x * 5);
+           // var force = i == 0 ? new Vector3(+100, 0, 0) : new Vector3(-100, 0, 0);
+            var force =new Vector3(100, 0, 0);
+            rb.AddForce(force * cuttedObjects[i].transform.localPosition.x * 10f);
         }
     }
 }

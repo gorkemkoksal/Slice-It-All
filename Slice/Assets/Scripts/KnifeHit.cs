@@ -15,6 +15,7 @@ public class KnifeHit : MonoBehaviour
     {
         if (other.CompareTag("Plane"))
         {
+            playerRb.freezeRotation = true;
             playerRb.isKinematic = true;
             playerRb.velocity = Vector3.zero;
             movement.SetIsStabbed(true);
