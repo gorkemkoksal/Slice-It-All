@@ -623,6 +623,7 @@ GameObject:
   m_Component:
   - component: {fileID: 709048834}
   - component: {fileID: 709048835}
+  - component: {fileID: 709048836}
   m_Layer: 6
   m_Name: Holder
   m_TagString: Untagged
@@ -658,6 +659,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.05, z: 0.04}
   m_Center: {x: 0.12, y: 0, z: 0}
+--- !u!114 &709048836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709048833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d937effbe2d8ec419dbe01d74b19960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &830566433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,6 +1078,7 @@ GameObject:
   - component: {fileID: 23894503884190323}
   - component: {fileID: 205364086341224855}
   - component: {fileID: 1244424106}
+  - component: {fileID: 205364086341224856}
   m_Layer: 6
   m_Name: Knife
   m_TagString: knife
@@ -1461,6 +1475,18 @@ LODGroup:
     renderers:
     - renderer: {fileID: 23911674018216419}
   m_Enabled: 1
+--- !u!114 &205364086341224856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196844967557991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d8a88b7d5d64248a5fd774e4744f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8074753753220466807
 PrefabInstance:
   m_ObjectHideFlags: 0
