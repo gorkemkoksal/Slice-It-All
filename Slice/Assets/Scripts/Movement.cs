@@ -48,7 +48,7 @@ public class Movement : MonoBehaviour
     {
         playerRb.velocity = Vector3.zero;
         playerRb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-      //  knife.DOLocalRotate(new Vector3(0, 0, -240), 1f, RotateMode.FastBeyond360);
+        knife.DOLocalRotate(new Vector3(0, 0, -240), 1f, RotateMode.FastBeyond360);
     }
     private void KnifeColliderEnabler(bool isStabbed) => knifeCollider.enabled = isStabbed;
     public void SetIsStabbed(bool isStabbed) => this.isStabbed = isStabbed;

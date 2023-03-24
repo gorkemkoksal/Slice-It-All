@@ -39,8 +39,8 @@ public class Cuttables : MonoBehaviour
         {
             var rb = cuttedObjects[i].gameObject.GetComponent<Rigidbody>();
 
-           // var force = i == 0 ? new Vector3(+100, 0, 0) : new Vector3(-100, 0, 0);
-            var force =new Vector3(100, 0, 0);
+            var force = i == 0 ? new Vector3(+100, 0, 0) : new Vector3(-100, 0, 0);
+            //var force =new Vector3(100, 0, 0);
             rb.AddForce(force * cuttedObjects[i].transform.localPosition.x * 10f);
         }
     }
