@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -7,11 +8,22 @@ using UnityEngine.UI;
 
 public class CoinManager : MonoBehaviour
 {
+    [SerializeField] private int Coin;
+    [SerializeField] private int tempCoin;
     [SerializeField] private GameObject PileOfCoinParent;
     [SerializeField] private Text Counter;
+    [SerializeField] private Text tempCoinText;
     [SerializeField] private Vector3[] InitalPosition;
     [SerializeField] private Quaternion[] InitalRotation;
     [SerializeField] private int CoinNo;
+
+    private int y;
+
+    private void Awake()
+    {
+        DOTween.SetTweensCapacity(1000, 50);
+        Counter.text = PlayerPrefs.GetInt("Coin").ToString();
+    }
 
     void Start()
     {
@@ -23,6 +35,28 @@ public class CoinManager : MonoBehaviour
             InitalPosition[i] = PileOfCoinParent.transform.GetChild(i).position;
             InitalRotation[i] = PileOfCoinParent.transform.GetChild(i).rotation;
         }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GetCoin(10);
+            tempCoinText.text = tempCoin.ToString();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            MultipleCoin();
+        }
+}
+
+    public void GetCoin(int coinPoint)
+    {
+        PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + coinPoint);
+        Counter.text = PlayerPrefs.GetInt("Coin").ToString();
+
+        tempCoin += coinPoint;
     }
 
     private void Reset()
@@ -42,6 +76,9 @@ public class CoinManager : MonoBehaviour
 
         PileOfCoinParent.SetActive(true);
 
+        y = tempCoin / 10;
+
+
         for (int i = 0; i < PileOfCoinParent.transform.childCount; i++)
         {
             PileOfCoinParent.transform.GetChild(i).DOScale(1f,0.3f).SetDelay(delay).SetEase(Ease.OutBack);
@@ -56,12 +93,28 @@ public class CoinManager : MonoBehaviour
 
             delay += 0.1f;
         }
+
+        ResetTempCoin();
     }
 
     private void CountCoinsByComplete()
     {
-        PlayerPrefs.SetInt("Coin",PlayerPrefs.GetInt("Coin") + 1);
+        PlayerPrefs.SetInt("Coin",PlayerPrefs.GetInt("Coin") + y);
         Counter.text = PlayerPrefs.GetInt("Coin").ToString();
+    }
+
+    private void ResetTempCoin()
+    {
+        tempCoin = 0;
+        tempCoinText.text = tempCoin.ToString();
+    }
+
+    private void MultipleCoin()
+    {
+        var x = 10;
+
+        tempCoin = x * tempCoin;
+        tempCoinText.text = tempCoin.ToString();
     }
 
 }
