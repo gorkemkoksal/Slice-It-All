@@ -8,6 +8,7 @@ public class KnifeHit : MonoBehaviour
     public static Action OnAnyCut;
     [SerializeField] private Movement movement;
     [SerializeField] private CoinManager coinManager;
+    [SerializeField] private GameManager gameManager;
     private bool CoinStop = true;
     private void OnTriggerEnter(Collider other)
     {
@@ -23,14 +24,17 @@ public class KnifeHit : MonoBehaviour
         {
             print(other.name);
             var text = other.transform.GetChild(1).GetComponent<TextMeshPro>();
-            var multiplier= int.Parse(text.text);
+            var multiplier = int.Parse(text.text);
             print(multiplier);
 
             coinManager.MultipleCoin(multiplier);
             CoinStop = false;
             OnAnyStab();
             movement.IsEnded = true;
+
+            gameManager.EndLevel();
         }
     }
-    //ata ogren bunlari
+    //Ata ogren bunlari
+    // Görkem üþenme kanka
 }

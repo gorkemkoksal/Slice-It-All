@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 62e1568a071027a469a2c401df7b4021
+  - enabled: 1
     path: Assets/Scenes/Gorkem's Scene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

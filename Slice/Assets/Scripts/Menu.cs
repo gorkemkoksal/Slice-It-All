@@ -13,24 +13,36 @@ public class Menu : MonoBehaviour
     void Start()
     {
         TapToFlip.transform.DOScale(1.1f, 0.5f).SetLoops(1000, LoopType.Yoyo).SetEase(Ease.InOutFlash);
+        MainMenu.SetActive(true);
     }
 
     void Update()
     {
-        if (!MarketisOpen)
+        /*if (!MarketisOpen)
         {
             if (Input.GetKeyDown(KeyCode.M))
             {
                 MarketMenu.SetActive(true);
             }
-        }
+        }*/
     }
 
 
-    private void OpenMarketMenu()
+    /*public void OpenMarketMenu()
     {
+        MarketMenu.SetActive(true);
+        MainMenu.SetActive(false);
 
-    }
+        MarketisOpen = true;
+    }*/
+
+    /*public void CloseMarketMenu()
+    {
+        MarketMenu.SetActive(false);
+        MainMenu.SetActive(true );
+
+        MarketisOpen = false;
+    }*/
 
     public void OpenWinPanel()
     {

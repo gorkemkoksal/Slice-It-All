@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private bool game;
     [SerializeField] private Menu menu;
     [SerializeField] private CoinManager coinManager;
+    [SerializeField] private Movement movement;
     
     void Start()
     {
@@ -17,20 +18,17 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-
-
-        if (Input.GetMouseButtonDown(0) && game == false && !menu.MarketisOpen)
+        /*if (Input.GetKeyDown(KeyCode.M))
         {
-            game = true;
+            menu.OpenMarketMenu();
+        }*/
 
+        if (Input.GetMouseButtonDown(0))
+        {
             menu.MainMenu.SetActive(false);
             menu.MenuInGame.SetActive(true);
         }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            EndLevel();
-        }
+        
     }
 
     public void EndLevel()
@@ -40,13 +38,13 @@ public class GameManager : MonoBehaviour
         menu.WinPanel.SetActive(true);
     }
 
-    private void RestartGame()
+    public void RestartGame()
     {
-        SceneManager.LoadScene("Scene Name");
+        SceneManager.LoadScene(0);
     }
 
-    private void NextLevel()
+    /*private void NextLevel()
     {
         SceneManager.LoadScene("Scene Name");
-    }
+    }*/
 }

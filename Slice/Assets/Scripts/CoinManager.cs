@@ -66,8 +66,6 @@ public class CoinManager : MonoBehaviour
 
     public void RewardPileOfCoin(int noCoin)
     {
-        Reset();
-
         var delay = 0f;
 
         PileOfCoinParent.SetActive(true);
@@ -77,9 +75,9 @@ public class CoinManager : MonoBehaviour
 
         for (int i = 0; i < PileOfCoinParent.transform.childCount; i++)
         {
-            PileOfCoinParent.transform.GetChild(i).DOScale(1f, 0.3f).SetDelay(delay).SetEase(Ease.OutBack);
+            PileOfCoinParent.transform.GetChild(i).DOScale(2f, 0.3f).SetDelay(delay).SetEase(Ease.OutBack);
 
-            PileOfCoinParent.transform.GetChild(i).GetComponent<RectTransform>().DOAnchorPos(new Vector2(646f, 460f), 0.8f).
+            PileOfCoinParent.transform.GetChild(i).GetComponent<RectTransform>().DOAnchorPos(new Vector2(227f, 1519f), 0.8f).
                 SetDelay(delay + 0.5f).SetEase(Ease.InBack);
 
             PileOfCoinParent.transform.GetChild(i).DORotate(Vector3.zero, 0.05f).SetDelay(delay + 0.5f).SetEase(Ease.Flash).
@@ -89,6 +87,8 @@ public class CoinManager : MonoBehaviour
 
             delay += 0.1f;
         }
+
+        //Reset();
 
         ResetTempCoin();
     }
