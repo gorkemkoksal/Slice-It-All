@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     private bool isStabbed;
     private bool isKnockback;
     private ParticleSystem particleVFX;
+    public bool IsEnded;
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -51,6 +52,7 @@ public class Movement : MonoBehaviour
     }
     private void InputManager_OnAnyTouch()
     {
+        if (IsEnded) return;
         isKnockback = false;
         if (isStabbed)
         {
