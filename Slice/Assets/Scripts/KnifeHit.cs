@@ -21,8 +21,10 @@ public class KnifeHit : MonoBehaviour
         }
         else if (other.CompareTag("Multiple5") && CoinStop)
         {
+            print(other.name);
             var text = other.transform.GetChild(1).GetComponent<TextMeshPro>();
             var multiplier= int.Parse(text.text);
+            print(multiplier);
 
             coinManager.MultipleCoin(multiplier);
             CoinStop = false;
