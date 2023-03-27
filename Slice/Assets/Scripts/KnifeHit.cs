@@ -32,4 +32,5 @@ public class KnifeHit : MonoBehaviour
             movement.IsEnded = true;
         }
     }
+    //ata ogren bunlari
 }
