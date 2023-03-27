@@ -12,9 +12,11 @@ public class Movement : MonoBehaviour
     private Rigidbody playerRb;
     private bool isStabbed;
     private bool isKnockback;
+    private ParticleSystem particleVFX;
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
+        particleVFX = GetComponent<ParticleSystem>();
     }
     private void OnEnable()
     {
@@ -61,6 +63,9 @@ public class Movement : MonoBehaviour
         //Spin(spinSpeed);
         playerRb.DORotate(new Vector3(660, 0, 0), 1f,RotateMode.FastBeyond360);
         Jump(jumpPower);
+
+        particleVFX.Stop();
+        particleVFX.Play();
     }
     private void KnifeColliderEnabler(bool isStabbed) => knifeCollider.enabled = isStabbed;
     private void HolderHit_OnAnyBackHit()
