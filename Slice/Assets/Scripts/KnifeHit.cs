@@ -7,6 +7,7 @@ public class KnifeHit : MonoBehaviour
     public static Action OnAnyCut;
 
     [SerializeField] private CoinManager coinManager;
+    private bool CoinStop = true;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Plane"))
@@ -17,34 +18,46 @@ public class KnifeHit : MonoBehaviour
         {
             OnAnyCut();
         }
-        else if (other.CompareTag("Multiple5"))
+        else if (other.CompareTag("Multiple5") && CoinStop)
         {
             coinManager.MultipleCoinx5();
+            print("5 ile Çaprtý.");
+            CoinStop = false;
             OnAnyStab();
         }
-        else if (other.CompareTag("Multiple10"))
+        else if (other.CompareTag("Multiple10") && CoinStop)
         {
             coinManager.MultipleCoinx10();
+            print("10 ile Çaprtý.");
+            CoinStop = false;
             OnAnyStab();
         }
-        else if (other.CompareTag("Multiple15"))
+        else if (other.CompareTag("Multiple15") && CoinStop)
         {
             coinManager.MultipleCoinx15();
+            print("15 ile Çaprtý.");
+            CoinStop = false;
             OnAnyStab();
         }
-        else if (other.CompareTag("Multiple20"))
+        else if (other.CompareTag("Multiple20") && CoinStop)
         {
             coinManager.MultipleCoinx20();
+            print("20 ile Çaprtý.");
+            CoinStop = false;
             OnAnyStab();
         }
-        else if (other.CompareTag("Multiple30"))
+        else if (other.CompareTag("Multiple30") && CoinStop)
         {
             coinManager.MultipleCoinx30();
+            print("30 ile Çaprtý.");
+            CoinStop = false;
             OnAnyStab();
         }
-        else if (other.CompareTag("Multiple50"))
+        else if (other.CompareTag("Multiple50") && CoinStop)
         {
             coinManager.MultipleCoinx50();
+            print("50 ile Çaprtý.");
+            CoinStop = false;
             OnAnyStab();
         }
     }

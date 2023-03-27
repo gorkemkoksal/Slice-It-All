@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] private Text TapToFlip;
     public GameObject MainMenu, MenuInGame, WinPanel, MarketMenu;
+    public bool MarketisOpen = false;
 
     void Start()
     {
@@ -16,7 +17,13 @@ public class Menu : MonoBehaviour
 
     void Update()
     {
-        
+        if (!MarketisOpen)
+        {
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                MarketMenu.SetActive(true);
+            }
+        }
     }
 
 
