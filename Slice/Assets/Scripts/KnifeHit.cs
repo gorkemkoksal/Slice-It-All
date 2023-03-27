@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using TMPro;
 
 public class KnifeHit : MonoBehaviour
 {
@@ -20,50 +21,13 @@ public class KnifeHit : MonoBehaviour
         }
         else if (other.CompareTag("Multiple5") && CoinStop)
         {
-            coinManager.MultipleCoinx5();
-            CoinStop = false;
-            OnAnyStab();
-            movement.IsEnded = true;
-        }
-        else if (other.CompareTag("Multiple10") && CoinStop)
-        {
-            coinManager.MultipleCoinx10();
-            CoinStop = false;
-            OnAnyStab();
-            movement.IsEnded = true;
+            var text = other.transform.GetChild(1).GetComponent<TextMeshPro>();
+            var multiplier= int.Parse(text.text);
 
-        }
-        else if (other.CompareTag("Multiple15") && CoinStop)
-        {
-            coinManager.MultipleCoinx15();
+            coinManager.MultipleCoin(multiplier);
             CoinStop = false;
             OnAnyStab();
             movement.IsEnded = true;
-
-        }
-        else if (other.CompareTag("Multiple20") && CoinStop)
-        {
-            coinManager.MultipleCoinx20();
-            CoinStop = false;
-            OnAnyStab();
-            movement.IsEnded = true;
-
-        }
-        else if (other.CompareTag("Multiple30") && CoinStop)
-        {
-            coinManager.MultipleCoinx30();
-            CoinStop = false;
-            OnAnyStab();
-            movement.IsEnded = true;
-
-        }
-        else if (other.CompareTag("Multiple50") && CoinStop)
-        {
-            coinManager.MultipleCoinx50();
-            CoinStop = false;
-            OnAnyStab();
-            movement.IsEnded = true;
-
         }
     }
 }

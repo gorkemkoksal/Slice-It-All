@@ -110,51 +110,9 @@ public class CoinManager : MonoBehaviour
         tempCoinText.text = tempCoin.ToString();
     }
 
-    public void MultipleCoinx5()
+    public void MultipleCoin(int multiplierAmount)
     {
-        x = 5;
-
-        tempCoin = x * tempCoin;
-        tempCoinText.text = "+ " + tempCoin.ToString();
-    }
-
-    public void MultipleCoinx10()
-    {
-        x = 10;
-
-        tempCoin = x * tempCoin;
-        tempCoinText.text = "+ " + tempCoin.ToString();
-    }
-
-    public void MultipleCoinx15()
-    {
-        x = 15;
-
-        tempCoin = x * tempCoin;
-        tempCoinText.text = "+ " + tempCoin.ToString();
-    }
-
-    public void MultipleCoinx20()
-    {
-        x = 20;
-
-        tempCoin = x * tempCoin;
-        tempCoinText.text = "+ " + tempCoin.ToString();
-    }
-
-    public void MultipleCoinx30()
-    {
-        x = 30;
-
-        tempCoin = x * tempCoin;
-        tempCoinText.text = "+ " + tempCoin.ToString();
-    }
-
-    public void MultipleCoinx50()
-    {
-        x = 50;
-
-        tempCoin = x * tempCoin;
+        tempCoin = multiplierAmount * tempCoin;
         tempCoinText.text = "+ " + tempCoin.ToString();
     }
 }
