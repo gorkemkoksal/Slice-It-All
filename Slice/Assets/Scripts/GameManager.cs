@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     {
 
 
-        if (Input.GetMouseButtonDown(0) && game == false)
+        if (Input.GetMouseButtonDown(0) && game == false && !menu.MarketisOpen)
         {
             game = true;
 
