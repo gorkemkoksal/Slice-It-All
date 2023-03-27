@@ -8,6 +8,12 @@ TagManager:
   - knife
   - Cuttable
   - MultipleCuttables
+  - Multiple5
+  - Multiple50
+  - Multiple15
+  - Multiple20
+  - Multiple30
+  - Multiple10
   layers:
   - Default
   - TransparentFX

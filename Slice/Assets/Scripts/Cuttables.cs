@@ -16,6 +16,8 @@ public class Cuttables : MonoBehaviour
 
     private Material legoMaterial;
 
+    //[SerializeField] private CoinManager coinManager;
+
     private void Start()
     {
         if (TryGetComponent(out BoxCollider bCollider))
@@ -48,6 +50,8 @@ public class Cuttables : MonoBehaviour
             rightPart.gameObject.SetActive(true);
 
             ForceCuttedOBjects(numberOfPiecesToForce);
+
+            //coinManager.GetCoin(10);
         }
     }
     private void ForceCuttedOBjects(int amount)

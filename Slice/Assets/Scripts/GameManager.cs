@@ -5,17 +5,39 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private bool game = false;
+    private bool game;
+    [SerializeField] private Menu menu;
+    [SerializeField] private CoinManager coinManager;
     
     void Start()
     {
-        
+        game = false;
     }
 
     
     void Update()
     {
-        
+
+
+        if (Input.GetMouseButtonDown(0) && game == false)
+        {
+            game = true;
+
+            menu.MainMenu.SetActive(false);
+            menu.MenuInGame.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            EndLevel();
+        }
+    }
+
+    public void EndLevel()
+    {
+        game = false;
+
+        menu.WinPanel.SetActive(true);
     }
 
     private void RestartGame()
