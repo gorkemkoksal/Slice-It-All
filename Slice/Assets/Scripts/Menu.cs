@@ -7,6 +7,7 @@ using DG.Tweening;
 public class Menu : MonoBehaviour
 {
     [SerializeField] private Text TapToFlip;
+    public GameObject MainMenu, MenuInGame, WinPanel, MarketMenu;
 
     void Start()
     {
@@ -19,8 +20,13 @@ public class Menu : MonoBehaviour
     }
 
 
-    private void MarketMenu()
+    private void OpenMarketMenu()
     {
 
+    }
+
+    public void OpenWinPanel()
+    {
+        WinPanel.gameObject.SetActive(true);
     }
 }

@@ -12,12 +12,15 @@ public class CoinManager : MonoBehaviour
     [SerializeField] private int tempCoin;
     [SerializeField] private GameObject PileOfCoinParent;
     [SerializeField] private Text Counter;
-    [SerializeField] private Text tempCoinText;
+    public Text tempCoinText;
     [SerializeField] private Vector3[] InitalPosition;
     [SerializeField] private Quaternion[] InitalRotation;
     [SerializeField] private int CoinNo;
 
+    public Action OnScore;
+
     private int y;
+    private int x;
 
     private void Awake()
     {
@@ -43,11 +46,6 @@ public class CoinManager : MonoBehaviour
         {
             GetCoin(10);
             tempCoinText.text = tempCoin.ToString();
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            MultipleCoin();
         }
 }
 
@@ -109,12 +107,51 @@ public class CoinManager : MonoBehaviour
         tempCoinText.text = tempCoin.ToString();
     }
 
-    private void MultipleCoin()
+    public void MultipleCoinx5()
     {
-        var x = 10;
+        x = 5;
 
         tempCoin = x * tempCoin;
-        tempCoinText.text = tempCoin.ToString();
+        tempCoinText.text = "+ " + tempCoin.ToString();
     }
 
+    public void MultipleCoinx10()
+    {
+        x = 10;
+
+        tempCoin = x * tempCoin;
+        tempCoinText.text = "+ " + tempCoin.ToString();
+    }
+
+    public void MultipleCoinx15()
+    {
+        x = 15;
+
+        tempCoin = x * tempCoin;
+        tempCoinText.text = "+ " + tempCoin.ToString();
+    }
+
+    public void MultipleCoinx20()
+    {
+        x = 20;
+
+        tempCoin = x * tempCoin;
+        tempCoinText.text = "+ " + tempCoin.ToString();
+    }
+
+    public void MultipleCoinx30()
+    {
+        x = 30;
+
+        tempCoin = x * tempCoin;
+        tempCoinText.text = "+ " + tempCoin.ToString();
+    }
+
+    public void MultipleCoinx50()
+    {
+        x = 50;
+
+        tempCoin = x * tempCoin;
+        tempCoinText.text = "+ " + tempCoin.ToString();
+    }
 }
