@@ -1,32 +1,50 @@
-using DG.Tweening;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private float horizontalSpeed = 5f;
-    [SerializeField] private float maxHorizontalSpeed = 5f;
+
+    [SerializeField] private float verticalSpeed = 5f;
+    [SerializeField] private float maxVerticalSpeed = 5f;
+    [SerializeField] private float spinSpeed = 5f;
     [SerializeField] private float jumpPower = 1f;
     [SerializeField] private BoxCollider knifeCollider;
 
     private Rigidbody playerRb;
-    private Transform knife;
-    private bool isStabbed; 
+    private bool isStabbed;
+    private bool isKnockback;
 
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
-        knife = transform.GetChild(0);
     }
-    private void OnEnable() => InputManager.onAnyTouch += InputManager_OnAnyTouch;
-    private void OnDisable() => InputManager.onAnyTouch -= InputManager_OnAnyTouch;
-    private void FixedUpdate() => ConstantForwardSpeed();
-    private void ConstantForwardSpeed()
+    private void OnEnable()
+    {
+        InputManager.onAnyTouch += InputManager_OnAnyTouch;
+        HolderHit.OnAnyBackHit += HolderHit_OnAnyBackHit;
+        KnifeHit.OnAnyStab += KnifeHit_OnAnyStab;
+        KnifeHit.OnAnyCut+= KnifeHit_OnAnyCut;
+    }
+    private void OnDisable()
+    {
+        InputManager.onAnyTouch -= InputManager_OnAnyTouch;
+        HolderHit.OnAnyBackHit -= HolderHit_OnAnyBackHit;
+        KnifeHit.OnAnyStab -= KnifeHit_OnAnyStab;
+        KnifeHit.OnAnyCut -= KnifeHit_OnAnyCut;
+    }
+    private void FixedUpdate()
     {
         if (isStabbed) return;
-
-        if (playerRb.velocity.z < maxHorizontalSpeed)
+        if (isKnockback)
         {
-            playerRb.AddForce(Vector3.forward * horizontalSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            return;
+        }
+        ConstantForwardSpeed();
+    }
+    private void ConstantForwardSpeed()
+    {
+        if (playerRb.velocity.z < maxVerticalSpeed)
+        {
+            playerRb.AddForce(Vector3.forward * verticalSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
         }
         else
         {
@@ -35,24 +53,52 @@ public class Movement : MonoBehaviour
     }
     private void InputManager_OnAnyTouch()
     {
+        isKnockback = false;
         if (isStabbed)
         {
-            playerRb.freezeRotation = false;
+            RigidbodyConstraintsSetter();
+
             playerRb.isKinematic = false;
             KnifeColliderEnabler(false);
             isStabbed = false;
         }
-        JumpAndRotate();
+        Jump(jumpPower);
+        Spin(spinSpeed);
     }
-    private void JumpAndRotate()
+    private void KnifeColliderEnabler(bool isStabbed) => knifeCollider.enabled = isStabbed;
+    private void HolderHit_OnAnyBackHit()
+    {
+        isKnockback = true;
+        Jump(jumpPower * .4f);
+        Spin(-spinSpeed * 0.75f);
+    }
+    private void KnifeHit_OnAnyStab()
+    {
+        playerRb.freezeRotation = true;
+        playerRb.isKinematic = true;
+        playerRb.velocity = Vector3.zero;
+        isStabbed = true;
+    }
+    private void KnifeHit_OnAnyCut()
+    {
+        playerRb.angularVelocity = Vector3.zero;
+        isKnockback = true;
+    }
+    private void Jump(float jumpPower)
     {
         playerRb.velocity = Vector3.zero;
         playerRb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-        knife.DOLocalRotate(new Vector3(0, 0, -240), 1f, RotateMode.FastBeyond360);
     }
-    private void KnifeColliderEnabler(bool isStabbed) => knifeCollider.enabled = isStabbed;
-    public void SetIsStabbed(bool isStabbed) => this.isStabbed = isStabbed;
-
-
-
+    private void Spin(float spinSpeed)
+    {
+        playerRb.angularVelocity = Vector3.zero;
+        playerRb.AddRelativeTorque(Vector3.right * spinSpeed, ForceMode.Impulse);
+    }
+    private void RigidbodyConstraintsSetter()
+    {
+        playerRb.constraints = RigidbodyConstraints.None;
+        playerRb.constraints = RigidbodyConstraints.FreezePositionX;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationY;
+        playerRb.constraints = RigidbodyConstraints.FreezeRotationZ;
+    }
 }

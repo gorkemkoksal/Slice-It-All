@@ -1,26 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class KnifeHit : MonoBehaviour
 {
-    private Rigidbody playerRb;
-    private Movement movement;
-    private void Start()
-    {
-        playerRb = transform.parent.GetComponent<Rigidbody>();
-        movement = transform.parent.GetComponent<Movement>();
-    }
+    public static Action OnAnyStab;
+    public static Action OnAnyCut;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Plane"))
         {
-            playerRb.freezeRotation = true;
-            playerRb.isKinematic = true;
-            playerRb.velocity = Vector3.zero;
-            movement.SetIsStabbed(true);
+            OnAnyStab();
+        }
+        else if (other.CompareTag("MultipleCuttables"))
+        {
+            OnAnyCut();
         }
     }
-
-
 }
