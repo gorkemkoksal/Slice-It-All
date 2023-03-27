@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Cuttables : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class Cuttables : MonoBehaviour
 
     private Material legoMaterial;
 
-    //[SerializeField] private CoinManager coinManager;
+    public static Action OnAnyCut;
 
     private void Start()
     {
@@ -50,6 +51,7 @@ public class Cuttables : MonoBehaviour
             rightPart.gameObject.SetActive(true);
 
             ForceCuttedOBjects(numberOfPiecesToForce);
+            OnAnyCut?.Invoke();
 
             //coinManager.GetCoin(10);
         }
