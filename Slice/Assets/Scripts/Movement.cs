@@ -1,8 +1,8 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-
     [SerializeField] private float verticalSpeed = 5f;
     [SerializeField] private float maxVerticalSpeed = 5f;
     [SerializeField] private float spinSpeed = 5f;
@@ -12,21 +12,20 @@ public class Movement : MonoBehaviour
     private Rigidbody playerRb;
     private bool isStabbed;
     private bool isKnockback;
-
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();
     }
     private void OnEnable()
     {
-        InputManager.onAnyTouch += InputManager_OnAnyTouch;
+        InputManager.OnAnyTouch += InputManager_OnAnyTouch;
         HolderHit.OnAnyBackHit += HolderHit_OnAnyBackHit;
         KnifeHit.OnAnyStab += KnifeHit_OnAnyStab;
-        KnifeHit.OnAnyCut+= KnifeHit_OnAnyCut;
+        KnifeHit.OnAnyCut += KnifeHit_OnAnyCut;
     }
     private void OnDisable()
     {
-        InputManager.onAnyTouch -= InputManager_OnAnyTouch;
+        InputManager.OnAnyTouch -= InputManager_OnAnyTouch;
         HolderHit.OnAnyBackHit -= HolderHit_OnAnyBackHit;
         KnifeHit.OnAnyStab -= KnifeHit_OnAnyStab;
         KnifeHit.OnAnyCut -= KnifeHit_OnAnyCut;
@@ -34,10 +33,7 @@ public class Movement : MonoBehaviour
     private void FixedUpdate()
     {
         if (isStabbed) return;
-        if (isKnockback)
-        {
-            return;
-        }
+        if (isKnockback) return;
         ConstantForwardSpeed();
     }
     private void ConstantForwardSpeed()
@@ -56,21 +52,23 @@ public class Movement : MonoBehaviour
         isKnockback = false;
         if (isStabbed)
         {
-            RigidbodyConstraintsSetter();
+           // RigidbodyConstraintsSetter();
 
             playerRb.isKinematic = false;
             KnifeColliderEnabler(false);
             isStabbed = false;
         }
+        //Spin(spinSpeed);
+        playerRb.DORotate(new Vector3(660, 0, 0), 1f,RotateMode.FastBeyond360);
         Jump(jumpPower);
-        Spin(spinSpeed);
     }
     private void KnifeColliderEnabler(bool isStabbed) => knifeCollider.enabled = isStabbed;
     private void HolderHit_OnAnyBackHit()
     {
         isKnockback = true;
-        Jump(jumpPower * .4f);
         Spin(-spinSpeed * 0.75f);
+        Jump(jumpPower/3, 5);
+        print("back");
     }
     private void KnifeHit_OnAnyStab()
     {
@@ -84,15 +82,16 @@ public class Movement : MonoBehaviour
         playerRb.angularVelocity = Vector3.zero;
         isKnockback = true;
     }
-    private void Jump(float jumpPower)
+    private void Jump(float jumpPower, float backwardPower = 0)
     {
         playerRb.velocity = Vector3.zero;
-        playerRb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        playerRb.AddForce(Vector3.up * jumpPower + Vector3.back * backwardPower, ForceMode.Impulse);
     }
     private void Spin(float spinSpeed)
     {
         playerRb.angularVelocity = Vector3.zero;
         playerRb.AddRelativeTorque(Vector3.right * spinSpeed, ForceMode.Impulse);
+
     }
     private void RigidbodyConstraintsSetter()
     {

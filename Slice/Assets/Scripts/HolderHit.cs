@@ -7,5 +7,6 @@ public class HolderHit : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         OnAnyBackHit();
+        print(other.name);
     }
 }

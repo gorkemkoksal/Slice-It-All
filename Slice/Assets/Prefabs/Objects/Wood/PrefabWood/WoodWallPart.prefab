@@ -82,7 +82,7 @@ MonoBehaviour:
   rightPart: {fileID: 1149203344495317336}
   mainObject: {fileID: 2794611809884796382}
   isLego: 0
-  forceAllCuttedObjects: 0
+  numberOfPiecesToForce: 2
 --- !u!1001 &610364361351427763
 PrefabInstance:
   m_ObjectHideFlags: 0

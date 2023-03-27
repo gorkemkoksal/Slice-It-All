@@ -17,3 +17,5 @@ public class KnifeHit : MonoBehaviour
         }
     }
 }
+//((transform.parent.rotation.x > 315f && transform.parent.rotation.x < 350f) || 
+//            (transform.parent.rotation.x > -45f && transform.parent.rotation.x < -7f)))

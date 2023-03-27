@@ -32,8 +32,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7157783622159570047}
-  - {fileID: 1570239939196717325}
   - {fileID: 3644339696360893270}
+  - {fileID: 1570239939196717325}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49,11 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051f41ba0c3da4746b4d88c680e14653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftPart: {fileID: 3644339696360893270}
-  rightPart: {fileID: 1570239939196717325}
+  leftPart: {fileID: 1570239939196717325}
+  rightPart: {fileID: 3644339696360893270}
   mainObject: {fileID: 7502538394725928645}
   isLego: 0
-  forceAllCuttedObjects: 1
+  numberOfPiecesToForce: 0
 --- !u!54 &-4900057990818597038
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -93,7 +93,7 @@ PrefabInstance:
     - target: {fileID: 6122582397988814257, guid: 8d4260108e0ecf044b16b2f5c2a2717e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6122582397988814257, guid: 8d4260108e0ecf044b16b2f5c2a2717e,
         type: 3}
@@ -307,7 +307,7 @@ PrefabInstance:
     - target: {fileID: 6122582397988814257, guid: 8d4260108e0ecf044b16b2f5c2a2717e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6122582397988814257, guid: 8d4260108e0ecf044b16b2f5c2a2717e,
         type: 3}

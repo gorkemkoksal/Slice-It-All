@@ -1,8 +1,5 @@
-using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Cuttables : MonoBehaviour
 {
@@ -10,7 +7,10 @@ public class Cuttables : MonoBehaviour
     [SerializeField] private Transform rightPart;
     [SerializeField] private GameObject mainObject;
     [SerializeField] private bool isLego;
-    [SerializeField] private bool forceAllCuttedObjects;
+    [Range(0, 2)][SerializeField] private int numberOfPiecesToForce;
+    [SerializeField] private Collider collider;
+
+    private List<Rigidbody> rigidbodies = new List<Rigidbody>();
 
     private bool isCutted;
 
@@ -18,6 +18,18 @@ public class Cuttables : MonoBehaviour
 
     private void Start()
     {
+        if (TryGetComponent(out BoxCollider bCollider))
+        {
+            collider = bCollider;
+        }
+        else if(TryGetComponent(out SphereCollider sCollider))
+        {
+            collider = sCollider;
+        }
+
+        rigidbodies.Add(transform.GetChild(1).GetComponent<Rigidbody>());
+        rigidbodies.Add(transform.GetChild(2).GetComponent<Rigidbody>());
+
         if (isLego == false) return;
         legoMaterial = transform.GetChild(0).GetComponent<MeshRenderer>().material;
         transform.GetChild(1).GetComponent<MeshRenderer>().material = legoMaterial;
@@ -30,25 +42,25 @@ public class Cuttables : MonoBehaviour
         if (other.CompareTag("knife"))
         {
             isCutted = true;
-
+            collider.enabled = false;
             mainObject.SetActive(false);
             leftPart.gameObject.SetActive(true);
             rightPart.gameObject.SetActive(true);
 
-            if (forceAllCuttedObjects) ForceCuttedOBjects(2);
-            else ForceCuttedOBjects(1);
-
+            ForceCuttedOBjects(numberOfPiecesToForce);
         }
     }
     private void ForceCuttedOBjects(int amount)
     {
-        for (int i = 1; i <= amount; i++)
+        if (amount == 0) return;
+
+        for (int i = 0; i < amount; i++)
         {
-            var rb = transform.GetChild(i).gameObject.GetComponent<Rigidbody>();
+            var rb = rigidbodies[i];
 
-            var force = i == 1 ? new Vector3(+100, 0, 0) : new Vector3(-100, 0, 0);
+            var force = i == 0 ? new Vector3(+300, 0, 0) : new Vector3(-300, 0, 0);
 
-            rb.AddForce(force + transform.GetChild(i).transform.localPosition);
+            rb.AddForce(force + transform.GetChild(i + 1).transform.localPosition);
         }
     }
 }
